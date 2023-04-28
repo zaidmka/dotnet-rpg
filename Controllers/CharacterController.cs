@@ -14,8 +14,8 @@ namespace dotnet_rpg.Controllers
 
         private static List<Character> characters=new List<Character>{
             new Character(),
-            new Character{Name="Cimaa"},
-            new Character{Name="Khudhur"}
+            new Character{Name="Cimaa",id=1},
+            new Character{Name="Khudhur",id=2}
         };
 
         [HttpGet("GetAll")]
@@ -23,9 +23,9 @@ namespace dotnet_rpg.Controllers
             return Ok(characters);
         }
 
-        [HttpGet]
-        public ActionResult<Character> GetSingle(){
-            return Ok(characters[1]);
+        [HttpGet("{seq}")]
+        public ActionResult<Character> GetSingle(int seq){
+            return Ok(characters.FirstOrDefault(p=>p.id==seq));
         }
     }
 }
