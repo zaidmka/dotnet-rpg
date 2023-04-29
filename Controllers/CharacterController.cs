@@ -19,18 +19,42 @@ namespace dotnet_rpg.Controllers
             _characterService = characterService;
         }
         [HttpGet("GetAll")]
-        public ActionResult<List<Character>> Get(){
-            return Ok(_characterService.GetAllCharacter());
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get(){
+            return Ok(await _characterService.GetAllCharacter());
         }
 
         [HttpGet("{seq}")]
-        public ActionResult<Character> GetSingle(int seq){
-            return Ok(_characterService.GetCharacterById(seq));
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int seq){
+            return Ok(await _characterService.GetCharacterById(seq));
         }
 
         [HttpPost]
-        public ActionResult<List<Character>> AddCharacter(Character newCharacter){
-            return Ok(_characterService.AddCharacter(newCharacter));
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddcharacterDto newCharacter){
+            return Ok(await _characterService.AddCharacter(newCharacter));
         }
+
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> UpdateCharacter(UpdateCharacterDto updatedCharacter){
+            var response = await _characterService.UpdateCharacter(updatedCharacter);
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+        [HttpDelete("{seq}")]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> DeleteCharacter(int seq){
+
+        var response = await _characterService.DeleteCharacter(seq);
+        if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+
+            return Ok(response);
+        }
+
+
+
     }
 }
