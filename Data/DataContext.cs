@@ -8,7 +8,8 @@ namespace dotnet_rpg.Data
     public class DataContext : DbContext
     {
       //constractor
-      public DataContext(DbContextOptions<DataContext> options):base(options){
+      public DataContext(DbContextOptions<DataContext> options):base(options)
+      {
 
       }
         // create table in DB
