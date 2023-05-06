@@ -5,10 +5,10 @@ namespace dotnet_rpg.Models
 
     public enum RpgClass
     {
-        Knight = 10,
-        mage = 20,
-        Healer=30,
-        Cleric=40
+        Knight = 1,
+        mage = 2,
+        Healer = 3,
+        Cleric = 4
 
     }
 }

@@ -14,6 +14,7 @@ namespace dotnet_rpg.Data
       }
         // create table in DB
       public DbSet<Character> Characters => Set<Character>();
+      public DbSet<User> Users => Set<User>();
 
     }
 }

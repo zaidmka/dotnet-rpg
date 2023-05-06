@@ -32,9 +32,9 @@ namespace dotnet_rpg.Data
             user.PasswordHash=passwordHash;
             user.PasswordSalt=passwordSalt;
             _context.Users.Add(user);
-            await _context.AddRangeAsync();
+            await _context.SaveChangesAsync();
             response.Data= user.Id;
-            return(response);
+            return response;
         }
 
         public async Task<bool> UserExits(string username)
