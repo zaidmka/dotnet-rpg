@@ -2,11 +2,14 @@ global using dotnet_rpg.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_rpg.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CharacterController : ControllerBase
@@ -15,26 +18,32 @@ namespace dotnet_rpg.Controllers
         private readonly ICharacterService _characterService;
 
         public CharacterController(ICharacterService characterService)
-{
+        {
             _characterService = characterService;
         }
+        [Authorize]
+
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get(){
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
+        {
             return Ok(await _characterService.GetAllCharacter());
         }
 
         [HttpGet("{seq}")]
-        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int seq){
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int seq)
+        {
             return Ok(await _characterService.GetCharacterById(seq));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddcharacterDto newCharacter){
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddcharacterDto newCharacter)
+        {
             return Ok(await _characterService.AddCharacter(newCharacter));
         }
 
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> UpdateCharacter(UpdateCharacterDto updatedCharacter){
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> UpdateCharacter(UpdateCharacterDto updatedCharacter)
+        {
             var response = await _characterService.UpdateCharacter(updatedCharacter);
             if (response.Data is null)
             {
@@ -43,16 +52,23 @@ namespace dotnet_rpg.Controllers
             return Ok(response);
         }
         [HttpDelete("{seq}")]
-        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> DeleteCharacter(int seq){
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> DeleteCharacter(int seq)
+        {
 
-        var response = await _characterService.DeleteCharacter(seq);
-        if (response.Data is null)
+            var response = await _characterService.DeleteCharacter(seq);
+            if (response.Data is null)
             {
                 return NotFound(response);
             }
 
             return Ok(response);
         }
+        [HttpPost("AddSkill")]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> AddCharacterSkill(AddCharacterSkillDto newCharacterSkill)
+        {
+            return Ok(await _characterService.AddCharacterSkill(newCharacterSkill));
+        }
+        
 
 
 
