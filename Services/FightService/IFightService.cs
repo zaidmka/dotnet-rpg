@@ -16,7 +16,8 @@ namespace dotnet_rpg.Services.FightService
 
         Task<ServiceResponse<List<HighScoreDto>>> GitHighScore();
 
-        // This is 2nd commit to create conflict
-        // merge
+        // Hello, this is a comment
+
+
     }
 }
