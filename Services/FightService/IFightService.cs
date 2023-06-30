@@ -16,6 +16,8 @@ namespace dotnet_rpg.Services.FightService
 
         Task<ServiceResponse<List<HighScoreDto>>> GitHighScore();
 
+        // Hello, this is a comment
+
 
     }
 }
